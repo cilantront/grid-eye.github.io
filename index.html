@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>升压站智能化预警系统 - 优特云科技</title>
-<link rel="icon" href="./favicon.ico" type="image/x-icon">
+<title>升压站智能化预警系统 - 优特云</title>
+<link rel="icon" href="./assets/images/favicon.ico" type="image/x-icon">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -39,82 +39,36 @@
 
   /* ===== Hero ===== */
   .hero {
-    background: url('./hero-bg.png') center/cover no-repeat;
+    background: url('./assets/images/hero-bg.png') center/cover no-repeat;
     color: #fff;
     padding: 140px 0 120px;
     position: relative;
     overflow: hidden;
   }
-  /* 主 overlay：深紫→半透明，保证文字可读性 */
+  /* 全局暗化蒙版：降低背景图整体亮度，避免刺眼 */
   .hero::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(150deg, rgba(72,52,212,0.82) 0%, rgba(108,92,231,0.65) 50%, rgba(162,155,254,0.45) 100%);
+    background: rgba(15, 12, 35, 0.35);
     z-index: 0;
   }
-  /* 顶部到底部微光晕 */
+  /* 底部加深，确保文字可读 */
   .hero::after {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.06) 0%, transparent 50%, rgba(255,255,255,0.03) 100%);
+    bottom: 0; left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(20,10,60,0.60) 0%, transparent 100%);
     z-index: 0;
-  }
-  /* 装饰网格线 */
-  .hero-deco {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-    z-index: 0;
-    pointer-events: none;
-  }
-  /* 浮动圆点装饰 */
-  .hero-deco-dots {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  .hero-deco-dots::before,
-  .hero-deco-dots::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.15;
-  }
-  .hero-deco-dots::before {
-    width: 200px;
-    height: 200px;
-    border: 2px solid rgba(255,255,255,0.3);
-    top: 15%;
-    right: 20%;
-    animation: float 6s ease-in-out infinite;
-  }
-  .hero-deco-dots::after {
-    width: 120px;
-    height: 120px;
-    background: rgba(255,255,255,0.08);
-    bottom: 25%;
-    right: 35%;
-    animation: float 8s ease-in-out infinite reverse;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(5deg); }
   }
   .hero .container { position: relative; z-index: 1; }
   .hero-badge {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
     border-radius: 100px;
     padding: 6px 16px;
     font-size: 13px;
@@ -125,35 +79,17 @@
   }
   .hero-badge .dot { width: 6px; height: 6px; background: #2ED573; border-radius: 50%; animation: pulse-dot 2s infinite; }
   @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-  .hero h1 { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; font-size: 52px; font-weight: 700; line-height: 1.15; margin-bottom: 24px; letter-spacing: -0.02em; color: #fff; }
-  .hero h1 .highlight { background: linear-gradient(135deg, #ffffff, #E8E8E8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .hero p { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 44px; max-width: 560px; }
+  .hero h1 { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; font-size: 52px; font-weight: 700; line-height: 1.15; margin-bottom: 24px; letter-spacing: -0.02em; color: #fff; text-shadow: 0 2px 24px rgba(0,0,0,0.35); }
+  .hero h1 .highlight { color: #E8E8E8; text-shadow: 0 2px 24px rgba(0,0,0,0.35); }
+  .hero p { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.9); text-shadow: 0 1px 12px rgba(0,0,0,0.25); margin-bottom: 44px; max-width: 560px; }
   .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
   .hero-btns .btn { padding: 14px 32px; font-size: 15px; border-radius: 10px; }
-  /* Hero 内按钮：白底紫字，清晰可辨 */
-  .hero-btns .btn-cta {
-    background: #ffffff;
-    color: #6C5CE7;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-    border: none;
-  }
+  .hero-btns .btn-cta { background: #ffffff; color: #6C5CE7; box-shadow: 0 4px 16px rgba(0,0,0,0.15); border: none; }
   .hero-btns .btn-cta:hover,
-  .hero-btns .btn-cta:focus-visible {
-    background: #f8f9fa;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.2);
-    transform: translateY(-2px);
-    outline: none;
-  }
-  .hero-btns .btn-outline-white {
-    background: transparent;
-    color: #ffffff;
-    border: 1.5px solid rgba(255,255,255,0.5);
-  }
+  .hero-btns .btn-cta:focus-visible { background: #f0f0f5; box-shadow: 0 6px 24px rgba(0,0,0,0.2); transform: translateY(-2px); outline: none; }
+  .hero-btns .btn-outline-white { background: transparent; color: #ffffff; border: 1.5px solid rgba(255,255,255,0.55); }
   .hero-btns .btn-outline-white:hover,
-  .hero-btns .btn-outline-white:focus-visible {
-    background: rgba(255,255,255,0.12);
-    outline: none;
-  }
+  .hero-btns .btn-outline-white:focus-visible { background: rgba(255,255,255,0.12); outline: none; }
   .hero-visual { display: none; }
 
   /* ===== Sections ===== */
@@ -210,14 +146,18 @@
   .alert-card p { font-size: 14px; color: #6c757d; line-height: 1.6; }
 
   /* ===== CTA ===== */
-  .cta { background: linear-gradient(160deg, #6C5CE7 0%, #4834D4 100%); color: #fff; text-align: center; padding: 100px 0; position: relative; overflow: hidden; }
-  .cta::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%); border-radius: 50%; }
-  .cta .container { position: relative; z-index: 1; }
-  .cta h2 { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; font-size: 38px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.01em; }
-  .cta p { font-size: 17px; color: rgba(255,255,255,0.85); margin-bottom: 40px; line-height: 1.6; }
-  .cta .btn-cta { padding: 16px 40px; font-size: 16px; border-radius: 12px; background: #ffffff; color: #6C5CE7; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-  .cta .btn-cta:hover, .cta .btn-cta:focus-visible { box-shadow: 0 6px 20px rgba(0,0,0,0.2); transform: translateY(-2px); outline: none; }
-  .cta .hint { margin-top: 20px; font-size: 13px; color: rgba(255,255,255,0.6); }
+  .cta { background: linear-gradient(135deg, #0C4A6E 0%, #075985 50%, #0EA5E9 100%); color: #fff; padding: 0; position: relative; overflow: hidden; }
+  .cta::before { content: ''; position: absolute; top: -50%; right: -20%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(14,165,233,0.2) 0%, transparent 70%); border-radius: 50%; }
+  .cta::after { content: ''; position: absolute; bottom: -30%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%); border-radius: 50%; }
+  .cta-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto; padding: 100px 24px; }
+  .cta-content .section-kicker { color: #7DD3FC; background: none; -webkit-text-fill-color: #7DD3FC; margin-bottom: 12px; }
+  .cta-content h2 { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; font-size: 36px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.01em; line-height: 1.2; }
+  .cta-content p { font-size: 16px; color: rgba(255,255,255,0.85); margin-bottom: 32px; line-height: 1.7; }
+  .cta-content .btn-cta { display: inline-flex; padding: 16px 40px; font-size: 16px; border-radius: 12px; background: #F97316; color: #fff; box-shadow: 0 4px 20px rgba(249,115,22,0.4); }
+  .cta-content .btn-cta:hover, .cta-content .btn-cta:focus-visible { background: #EA580C; box-shadow: 0 6px 24px rgba(249,115,22,0.5); transform: translateY(-2px); outline: none; }
+  .cta-visual { position: relative; }
+  .cta-visual img { width: 100%; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); }
+  .cta-visual::before { content: ''; position: absolute; top: -12px; left: -12px; right: 12px; bottom: 12px; border: 2px solid rgba(14,165,233,0.3); border-radius: 20px; z-index: -1; }
 
   /* ===== Footer ===== */
   footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 40px 0; text-align: center; font-size: 13px; }
@@ -242,6 +182,8 @@
     .section-title { font-size: 28px; }
     section { padding: 64px 0; }
     .cta h2 { font-size: 28px; }
+    .cta-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; padding: 64px 24px; }
+    .cta-visual { order: -1; }
   }
 </style>
 </head>
@@ -250,9 +192,9 @@
 <!-- Header -->
 <header>
   <div class="container">
-    <a href="#" class="logo" aria-label="优特云科技首页">
-      <img src="./favicon.ico" alt="优特云logo">
-      <span>优特云科技</span>
+    <a href="#" class="logo" aria-label="优特云首页">
+      <img src="./assets/images/favicon.ico" alt="优特云logo">
+      <span>优特云</span>
     </a>
     <nav aria-label="主导航">
       <a href="#features">产品功能</a>
@@ -266,8 +208,6 @@
 
 <!-- Hero -->
 <section class="hero" aria-label="产品介绍">
-  <div class="hero-deco"></div>
-  <div class="hero-deco-dots"></div>
   <div class="container">
     <div class="hero-badge" aria-hidden="true">
       <span class="dot"></span>
@@ -375,7 +315,7 @@
       </div>
     </div>
     <div class="arch-wrap" aria-label="产品架构图">
-      <img src="./architecture-ai.png" alt="升压站智能化预警系统产品架构图" style="width:100%;display:block;">
+      <img src="./assets/images/architecture-ai.png" alt="升压站智能化预警系统产品架构图" style="width:100%;display:block;">
     </div>
   </div>
 </section>
@@ -409,10 +349,16 @@
 
 <!-- CTA -->
 <section class="cta" id="contact">
-  <div class="container">
-    <h2>开始使用智能化预警系统</h2>
-    <p>访问在线体验地址，感受 AI 驱动的升压站设备监测与预警能力</p>
-    <a href="https://isolator.utyun.com/LoginPage" target="_blank" class="btn btn-cta" aria-label="立即体验升压站智能化预警系统">立即体验</a>
+  <div class="cta-inner">
+    <div class="cta-content">
+      <div class="section-kicker">立即体验</div>
+      <h2>开始使用智能化预警系统</h2>
+      <p>访问在线体验地址，感受 AI 驱动的升压站设备监测与预警能力，让运维更智能、更安全。</p>
+      <a href="https://isolator.utyun.com/LoginPage" target="_blank" class="btn btn-cta" aria-label="立即体验升压站智能化预警系统">立即体验</a>
+    </div>
+    <div class="cta-visual">
+      <img src="./assets/images/dashboard-mockup.png" alt="升压站智能化预警系统监控界面">
+    </div>
   </div>
 </section>
 
@@ -420,7 +366,7 @@
 <footer>
   <div class="container">
     <div class="footer-inner">
-      <p>&copy; 2024 优特云科技 (UteCloud Technology). All rights reserved.</p>
+      <p>Copyright © 2020 All Rights Reserved 珠海优特企业管理有限公司的版权所有</p>
     </div>
   </div>
 </footer>
