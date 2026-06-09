@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>升压站智能化预警系统 - 优特云科技</title>
+<link rel="icon" href="./favicon.ico" type="image/x-icon">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; color: #1a1a2e; line-height: 1.6; background: #F8F9FA; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    html { scroll-behavior: auto; }
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* ===== Header ===== */
+  header { background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #E8E8E8; position: sticky; top: 0; z-index: 100; }
+  header .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #1a1a2e; font-weight: 700; font-size: 20px; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+  .logo img { width: 32px; height: 32px; border-radius: 6px; }
+  nav { display: flex; gap: 28px; }
+  nav a { text-decoration: none; color: #6c757d; font-size: 14px; font-weight: 500; transition: color 0.2s; position: relative; }
+  nav a:hover, nav a:focus-visible { color: #6C5CE7; outline: none; }
+  nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, #6C5CE7, #4834D4); transition: width 0.2s; }
+  nav a:hover::after, nav a:focus-visible::after { width: 100%; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; transition: all 0.2s; cursor: pointer; border: none; letter-spacing: 0.01em; }
+  .btn-primary { background: linear-gradient(135deg, #6C5CE7, #4834D4); color: #ffffff; box-shadow: 0 1px 3px rgba(108,92,231,0.3); }
+  .btn-primary:hover, .btn-primary:focus-visible { box-shadow: 0 4px 12px rgba(108,92,231,0.35); transform: translateY(-1px); outline: none; }
+  .btn-cta { background: linear-gradient(135deg, #6C5CE7, #4834D4); color: #ffffff; box-shadow: 0 1px 3px rgba(108,92,231,0.3); }
+  .btn-cta:hover, .btn-cta:focus-visible { box-shadow: 0 4px 20px rgba(108,92,231,0.4); transform: translateY(-2px); outline: none; }
+  .btn-outline { background: transparent; color: #6C5CE7; border: 1.5px solid rgba(108,92,231,0.5); }
+  .btn-outline:hover, .btn-outline:focus-visible { background: rgba(108,92,231,0.08); outline: none; }
+  .btn-outline-white { background: transparent; color: #ffffff; border: 1.5px solid rgba(255,255,255,0.5); }
+  .btn-outline-white:hover, .btn-outline-white:focus-visible { background: rgba(255,255,255,0.12); outline: none; }
+
+  /* ===== Hero ===== */
+  .hero { background: url('./hero-bg.png') center/cover no-repeat; color: #fff; padding: 140px 0 120px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(12,74,110,0.88) 0%, rgba(7,89,133,0.75) 50%, rgba(12,74,110,0.6) 100%); z-index: 0; }
+  .hero::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 100%; background: linear-gradient(to bottom, rgba(12,74,110,0.3) 0%, transparent 40%, transparent 60%, rgba(12,74,110,0.4) 100%); z-index: 0; }
+  .hero .container { position: relative; z-index: 1; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 100px; padding: 6px 16px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.95); margin-bottom: 28px; backdrop-filter: blur(4px); }
+  .hero-badge .dot { width: 6px; height: 6px; background: #2ED573; border-radius: 50%; animation: pulse-dot 2s infinite; }
+  @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .hero h1 { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; font-size: 52px; font-weight: 700; line-height: 1.15; margin-bottom: 24px; letter-spacing: -0.02em; color: #fff; }
+  .hero h1 .highlight { background: linear-gradient(135deg, #ffffff, #E8E8E8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero p { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 44px; max-width: 560px; }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .hero-btns .btn { padding: 14px 32px; font-size: 15px; border-radius: 10px; }
+  .hero-btns .btn-cta { box-shadow: 0 4px 20px rgba(108,92,231,0.4); }
+  .hero-visual { display: none; }
+
+  /* ===== Sections ===== */
+  section { padding: 100px 0; }
+  .section-kicker { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: linear-gradient(135deg, #6C5CE7, #4834D4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
+  .section-title { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; font-size: 38px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.01em; color: #1a1a2e; }
+  .section-subtitle { font-size: 17px; color: #6c757d; line-height: 1.6; max-width: 560px; margin: 0 auto 60px; }
+
+  /* ===== Features ===== */
+  .features { background: #FFFFFF; }
+  .features .section-header { text-align: center; }
+  .features .section-subtitle { margin-left: auto; margin-right: auto; }
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .feature-card { background: #F8F9FA; border: 1px solid #E8E8E8; border-radius: 16px; padding: 32px 28px; transition: all 0.25s; cursor: pointer; position: relative; overflow: hidden; }
+  .feature-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #6C5CE7, #4834D4); transform: scaleX(0); transform-origin: left; transition: transform 0.25s; }
+  .feature-card:hover, .feature-card:focus-visible { box-shadow: 0 8px 30px rgba(108,92,231,0.1); transform: translateY(-4px); outline: none; border-color: rgba(108,92,231,0.3); }
+  .feature-card:hover::before, .feature-card:focus-visible::before { transform: scaleX(1); }
+  .feature-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+  .feature-icon svg { width: 22px; height: 22px; }
+  .feature-card h3 { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; font-size: 17px; font-weight: 600; margin-bottom: 10px; color: #1a1a2e; }
+  .feature-card p { font-size: 14px; color: #6c757d; line-height: 1.65; }
+
+  /* ===== Tech ===== */
+  .tech { background: #F8F9FA; }
+  .tech .section-header { text-align: center; }
+  .tech .section-subtitle { margin-left: auto; margin-right: auto; }
+  .tech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 900px; margin: 0 auto 48px; }
+  .tech-item { background: #FFFFFF; border-radius: 14px; padding: 28px; border: 1px solid #E8E8E8; transition: all 0.25s; cursor: pointer; }
+  .tech-item:hover, .tech-item:focus-within { box-shadow: 0 4px 20px rgba(108,92,231,0.08); transform: translateY(-2px); border-color: rgba(108,92,231,0.2); }
+  .tech-num { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: linear-gradient(135deg, #6C5CE7, #4834D4); color: #ffffff; border-radius: 8px; font-size: 14px; font-weight: 700; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; margin-bottom: 16px; }
+  .tech-item h4 { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a2e; }
+  .tech-item p { font-size: 14px; color: #6c757d; line-height: 1.6; }
+  .arch-wrap { background: #FFFFFF; border-radius: 16px; border: 1px solid #E8E8E8; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+  .arch-wrap img { width: 100%; display: block; }
+
+  /* ===== Alert Levels ===== */
+  .alert-levels { background: #FFFFFF; }
+  .alert-levels .section-header { text-align: center; }
+  .alert-levels .section-subtitle { margin-left: auto; margin-right: auto; }
+  .alert-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; max-width: 800px; margin: 0 auto; }
+  .alert-card { border-radius: 16px; padding: 40px 32px; text-align: center; transition: all 0.25s; cursor: pointer; }
+  .alert-card:hover { transform: translateY(-4px); }
+  .alert-card.level-1 { background: linear-gradient(135deg, #FFF5F5, #FFFFFF); border: 1.5px solid rgba(255,71,87,0.3); }
+  .alert-card.level-1:hover { box-shadow: 0 8px 30px rgba(255,71,87,0.12); }
+  .alert-card.level-2 { background: linear-gradient(135deg, #FFF8F0, #FFFFFF); border: 1.5px solid rgba(255,165,2,0.3); }
+  .alert-card.level-2:hover { box-shadow: 0 8px 30px rgba(255,165,2,0.12); }
+  .alert-level-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 18px; border-radius: 100px; font-size: 13px; font-weight: 700; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; margin-bottom: 20px; }
+  .level-1 .alert-level-badge { background: #FF4757; color: #fff; }
+  .level-2 .alert-level-badge { background: #FFA502; color: #1a1a2e; }
+  .alert-card h3 { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .level-1 h3 { color: #FF4757; }
+  .level-2 h3 { color: #FFA502; }
+  .alert-card .cond { font-size: 14px; font-weight: 600; color: #1a1a2e; margin-bottom: 8px; }
+  .alert-card p { font-size: 14px; color: #6c757d; line-height: 1.6; }
+
+  /* ===== CTA ===== */
+  .cta { background: linear-gradient(160deg, #6C5CE7 0%, #4834D4 100%); color: #fff; text-align: center; padding: 100px 0; position: relative; overflow: hidden; }
+  .cta::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%); border-radius: 50%; }
+  .cta .container { position: relative; z-index: 1; }
+  .cta h2 { font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; font-size: 38px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.01em; }
+  .cta p { font-size: 17px; color: rgba(255,255,255,0.85); margin-bottom: 40px; line-height: 1.6; }
+  .cta .btn-cta { padding: 16px 40px; font-size: 16px; border-radius: 12px; background: #ffffff; color: #6C5CE7; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .cta .btn-cta:hover, .cta .btn-cta:focus-visible { box-shadow: 0 6px 20px rgba(0,0,0,0.2); transform: translateY(-2px); outline: none; }
+  .cta .hint { margin-top: 20px; font-size: 13px; color: rgba(255,255,255,0.6); }
+
+  /* ===== Footer ===== */
+  footer { background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 40px 0; text-align: center; font-size: 13px; }
+  footer a { color: rgba(108,92,231,0.8); text-decoration: none; transition: color 0.2s; }
+  footer a:hover, footer a:focus-visible { color: #6C5CE7; outline: none; }
+  footer .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 900px) {
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .hero { padding: 80px 0 60px; }
+    .hero h1 { font-size: 32px; }
+    .hero p { font-size: 16px; }
+    .hero-btns { flex-direction: column; }
+    .hero-btns .btn { text-align: center; }
+    nav { display: none; }
+    .features-grid { grid-template-columns: 1fr; }
+    .tech-grid { grid-template-columns: 1fr; }
+    .alert-grid { grid-template-columns: 1fr; }
+    .section-title { font-size: 28px; }
+    section { padding: 64px 0; }
+    .cta h2 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="container">
+    <a href="#" class="logo" aria-label="优特云科技首页">
+      <img src="./favicon.ico" alt="优特云logo">
+      <span>优特云科技</span>
+    </a>
+    <nav aria-label="主导航">
+      <a href="#features">产品功能</a>
+      <a href="#tech">核心技术</a>
+      <a href="#alert">预警机制</a>
+      <a href="#contact">联系我们</a>
+    </nav>
+    <a href="https://isolator.utyun.com/LoginPage" target="_blank" class="btn btn-primary" aria-label="立即体验升压站预警系统">立即体验</a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero" aria-label="产品介绍">
+  <div class="container">
+    <div class="hero-badge" aria-hidden="true">
+      <span class="dot"></span>
+      AI 驱动的智能预警平台
+    </div>
+    <h1>升压站<span class="highlight">智能化</span><br>预警系统</h1>
+    <p>基于大数据学习与 AI 分析，实现从被动响应到主动预警的转变，全方位保障升压站设备运行安全。</p>
+    <div class="hero-btns">
+      <a href="https://isolator.utyun.com/LoginPage" target="_blank" class="btn btn-cta" aria-label="在线体验产品">在线体验</a>
+      <a href="#features" class="btn btn-outline-white" aria-label="了解更多产品功能">了解更多</a>
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-kicker">核心能力</div>
+      <h2 class="section-title">产品功能</h2>
+      <p class="section-subtitle">全方位监测升压站设备状态，智能化预警潜在风险，让运维更高效、更安全。</p>
+    </div>
+    <div class="features-grid">
+
+      <div class="feature-card" tabindex="0" role="article" aria-label="实时温度监测">
+        <div class="feature-icon" style="background:rgba(108,92,231,0.08);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6C5CE7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+        </div>
+        <h3>实时温度监测</h3>
+        <p>每分钟采集一次数据，实时监测刀闸各相温度、环境温度、环境湿度、太阳辐射度等多维度数据。</p>
+      </div>
+
+      <div class="feature-card" tabindex="0" role="article" aria-label="智能温度预测">
+        <div class="feature-icon" style="background:rgba(46,213,115,0.08);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2ED573" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>智能温度预测</h3>
+        <p>基于复相关系数预测算法，融合历史数据动态预测设备温度状态，提前发现潜在过热风险。</p>
+      </div>
+
+      <div class="feature-card" tabindex="0" role="article" aria-label="AI智能分析">
+        <div class="feature-icon" style="background:rgba(72,52,212,0.08);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4834D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>AI 智能分析</h3>
+        <p>集成 DeepSeek-R1-Distill-Qwen-14B 模型，自动识别异常模式，评估风险等级，生成运维建议。</p>
+      </div>
+
+      <div class="feature-card" tabindex="0" role="article" aria-label="分级预警机制">
+        <div class="feature-icon" style="background:rgba(255,71,87,0.08);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FF4757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <h3>分级预警机制</h3>
+        <p>I 级（红色）和 II 级（橙色）两级预警，根据温升速率和预测温度偏差自动触发。</p>
+      </div>
+
+      <div class="feature-card" tabindex="0" role="article" aria-label="历史数据分析">
+        <div class="feature-icon" style="background:rgba(108,92,231,0.08);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#6C5CE7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        </div>
+        <h3>历史数据分析</h3>
+        <p>支持按刀闸、时间、预警等级等多维度查询历史数据，生成温度变化图表，导出 Excel 报表。</p>
+      </div>
+
+      <div class="feature-card" tabindex="0" role="article" aria-label="灵活系统配置">
+        <div class="feature-icon" style="background:rgba(72,52,212,0.08);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4834D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </div>
+        <h3>灵活系统配置</h3>
+        <p>支持用户管理、设备配置、刀闸配置、测温点配置、预警等级阈值自定义，适应不同场景需求。</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Tech -->
+<section class="tech" id="tech">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-kicker">技术优势</div>
+      <h2 class="section-title">核心技术</h2>
+      <p class="section-subtitle">融合大数据分析、AI 推理与工业物联网技术，构建高精度智能预警体系。</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-item">
+        <div class="tech-num">01</div>
+        <h4>复相关系数预测算法</h4>
+        <p>基于多元线性回归模型，以刀闸温度为因变量，环境温度、湿度、太阳辐射度为自变量，通过最小二乘法求解回归系数，实现高精度温度预测。</p>
+      </div>
+      <div class="tech-item">
+        <div class="tech-num">02</div>
+        <h4>DeepSeek AI 分析引擎</h4>
+        <p>基于 DeepSeek-R1-Distill-Qwen-14B 大模型，结合提示工程，对预警数据进行异常模式识别、风险等级评估，输出智能运维建议。</p>
+      </div>
+      <div class="tech-item">
+        <div class="tech-num">03</div>
+        <h4>多维度数据采集</h4>
+        <p>通过热成像设备与环境监测设备，每分钟采集刀闸各相温度、环境温度、湿度、太阳辐射度数据，构建全息温场监测体系。</p>
+      </div>
+      <div class="tech-item">
+        <div class="tech-num">04</div>
+        <h4>硬件加速推理</h4>
+        <p>采用 Atlas 300I duo 96G AI 加速卡，提供高性能推理能力，确保预警分析的实时性与准确性。</p>
+      </div>
+    </div>
+    <div class="arch-wrap" aria-label="产品架构图">
+      <img src="./architecture-ai.png" alt="升压站智能化预警系统产品架构图" style="width:100%;display:block;">
+    </div>
+  </div>
+</section>
+
+<!-- Alert Levels -->
+<section class="alert-levels" id="alert">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-kicker">安全保障</div>
+      <h2 class="section-title">分级预警机制</h2>
+      <p class="section-subtitle">基于温升速率和预测温度偏差的双重判断逻辑，精准分级、及时响应。</p>
+    </div>
+    <div class="alert-grid">
+      <div class="alert-card level-1" tabindex="0" role="article" aria-label="I级红色预警">
+        <div class="alert-level-badge">I 级预警 · 最高级别</div>
+        <h3>红色预警</h3>
+        <div class="cond">触发条件</div>
+        <p>超过预测温度值 <strong>60%</strong><br>或 每 10 分钟温升 ≥ <strong>30°C</strong></p>
+        <p style="margin-top:14px;font-size:13px;color:#6c757d;">情况严重，可能造成重大影响，需高度警惕并准备应急响应。</p>
+      </div>
+      <div class="alert-card level-2" tabindex="0" role="article" aria-label="II级橙色预警">
+        <div class="alert-level-badge">II 级预警 · 较为严重</div>
+        <h3>橙色预警</h3>
+        <div class="cond">触发条件</div>
+        <p>超过预测温度值 <strong>50%</strong><br>或 每 20 分钟温升 ≥ <strong>40°C</strong></p>
+        <p style="margin-top:14px;font-size:13px;color:#6c757d;">情况较为严重，需注意防范，提前做好应急准备。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="container">
+    <h2>开始使用智能化预警系统</h2>
+    <p>访问在线体验地址，感受 AI 驱动的升压站设备监测与预警能力</p>
+    <a href="https://isolator.utyun.com/LoginPage" target="_blank" class="btn btn-cta" aria-label="立即体验升压站智能化预警系统">立即体验</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <p>&copy; 2024 优特云科技 (UteCloud Technology). All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
